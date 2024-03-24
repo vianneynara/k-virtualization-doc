@@ -58,7 +58,7 @@
 		{
 			"phase": "Check newly set Ubuntu Server",
 			"steps": {
-				"run_virtual_machine": "Wait starting up from previous reboot",
+				"run_virtual_machine": "Boot up from previous setup reboot",
 				"nara-us_login": "nara",
 				"password": "$4321",
 				"is_logged_in_properly": true,
