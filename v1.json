@@ -65,5 +65,57 @@
 				"shutdown": "shutdown -h now"
 			}
 		}
+	],
+	"clone_and_configure_vm": [
+		{
+			"phase": "Cloning the Ubuntu Server instance",
+			"steps": {
+				"enter_cloning_dialog": "Right click the VM instance and hit 'Clone'",
+				"vm_name": "Ubuntu Server Clone",
+				"vm_path": "D:\\VirtualMachines\\VirtualBox",
+				"mac_address_policy": "Include only NAT network adapter MAC addresses",
+				"additional_options": {
+					"keep_disk_names": false,
+					"keep_hardware_uuids": false,
+				},
+				"clone_type": "Full clone"
+			},
+			"phase": "Configure profile settings",
+			"steps": {
+				"run_virtual_machine": "Double click 'Ubuntu Server Clone' instance",
+				"nara-us_login": "nara",
+				"password": "$4321",
+				"is_logged_in_properly": true,
+				"install_nano": "sudo apt install nano",
+				"change_hostname_file": {
+					"open_file": "sudo nano /etc/hostname",
+					"changes": {
+						"nara-us": "nara-us2"
+					},
+					"exit": "CTRL + X",
+					"save_modified_buffer": "y",
+					"file_name_to_write": "/etc/hostname"
+				},
+				"change_host_file": {
+					"open_file": "sudo nano /etc/hosts",
+					"changes": {
+						"127.0.1.1 nara-us": "127.0.1.1 website" 
+					},
+					"exit": "CTRL + X",
+					"save_modified_buffer": "y",
+					"file_name_to_write": "/etc/hosts"
+				},
+				"change_user_password": {
+					"action": "sudo passwd nara",
+					"new_password": "$1234"
+				},
+				"reboot": "reboot",
+				"hostname_changed": true,
+				"nara-us2_login": "nara",
+				"password": "$1234",
+				"is_logged_in_properly": true,
+				"shutdown": "shutdown -h now"
+			}
+		}
 	]
 }
