@@ -1,3 +1,69 @@
 {
-	"is_virtualbox_available": true
+	"is_virtualbox_available": true,
+	"virtual_machine_setup": [
+		{
+			"phase": "Setup virtual machine",
+			"steps": {
+				"ubunt_server_vm_exists": false,
+				"create_new_vm": "Enter 'New'",
+				"vm_name": "Ubuntu Server",
+				"vm_folder": "D:\\VirtualMachine\\VirtualBox",
+				"iso_image": "D:\\VirtualMachines\\_iso_files\\ubuntu-22.04.4-live-server-amd64.iso",
+				"username": "nara-us",
+				"password": "$1234",
+				"repeat_password": "$1234",
+				"hostname": "Ubuntu-Server",
+				"domain_name": "UNCHANGED",
+				"base_memory_mb": 2048,
+				"processors": 2,
+				"virtual_disk_size_gb": 8.16,
+				"finally": "Enter 'Finish'"
+			}
+		},
+		{
+			"phase": "Setup Ubuntu server in VM",
+			"steps": {
+				"run_virtual_machine": "Double click 'Ubuntu Server' instance",
+				"language": "English",
+				"keyboard_layout": "English (US)",
+				"keyboard_variant": "English (US)",
+				"base_installation": "Ubuntu Server (minimized)",
+				"network_connection": "enp0s3",
+				"proxy_address": null,
+				"default_ubuntu_archive_mirror": "PASS",
+				"guided_storage_layout": {
+					"use_an_entire_disk": true,
+					"setup_disk_as_lvm_group": true,
+					"encrypt_lvm_with_luks": false
+				},
+				"storage_configuration": "UNCHANGED",
+				"begin_installation": "Enter 'Done'",
+				"confirm_destruction_action": "Enter 'Continue'",
+				"profile_setup": {
+					"name": "Nara",
+					"server_name": "nara-us",
+					"username": "nara",
+					"password": "$4321",
+					"confirm_password": "$4321"
+				},
+				"upgrade_to_ubuntu_pro": false,
+				"ssh_setup": {
+					"install_openssh_server": true,
+					"import_ssh_identity": "No"
+				},
+				"server_features": "SKIP",
+				"reboot": "Enter 'Reboot Now'"
+			}
+		},
+		{
+			"phase": "Check newly set Ubuntu Server",
+			"steps": {
+				"run_virtual_machine": "Boot up from previous setup reboot",
+				"nara-us_login": "nara",
+				"password": "$4321",
+				"is_logged_in_properly": true,
+				"shutdown": "shutdown -h now"
+			}
+		}
+	]
 }
