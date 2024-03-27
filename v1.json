@@ -79,7 +79,9 @@
 					"keep_hardware_uuids": false,
 				},
 				"clone_type": "Full clone"
-			},
+			}
+		},
+		{
 			"phase": "Configure profile settings",
 			"steps": {
 				"run_virtual_machine": "Double click 'Ubuntu Server Clone' instance",
