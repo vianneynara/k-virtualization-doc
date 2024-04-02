@@ -7,7 +7,7 @@
 				"ubunt_server_vm_exists": false,
 				"create_new_vm": "Enter 'New'",
 				"vm_name": "Ubuntu Server",
-				"vm_folder": "D:\\VirtualMachine\\VirtualBox",
+				"vm_folder": "D:\\VirtualMachines\\VirtualBox",
 				"iso_image": "D:\\VirtualMachines\\_iso_files\\ubuntu-22.04.4-live-server-amd64.iso",
 				"username": "nara-us",
 				"password": "$1234",
