@@ -27,7 +27,7 @@
 				"language": "English",
 				"keyboard_layout": "English (US)",
 				"keyboard_variant": "English (US)",
-				"base_installation": "Ubuntu Server (minimized)",
+				"base_installation": "Ubuntu Server",
 				"network_connection": "enp0s3",
 				"proxy_address": null,
 				"default_ubuntu_archive_mirror": "PASS",
@@ -63,29 +63,6 @@
 				"password": "$4321",
 				"is_logged_in_properly": true,
 				"shutdown": "shutdown -h now"
-			}
-		},
-		{
-			"phase": "Install essential base packages",
-			"steps": {
-				"run_virtual_machine": "Boot up from previous setup reboot",
-				"nara-us_login": "nara",
-				"password": "$4321",
-				"install_nano": {
-					"install_command": "sudo apt install nano",
-					"check_installation": "nano --version",
-					"is_properly_installed": true
-				},
-				"install_iputils-ping": {
-					"install_command": "sudo apt install iputils-ping",
-					"check_installation": "ping --version",
-					"is_properly_installed": true
-				},
-				"install_net-tools": {
-					"install_command": "sudo apt install net-tools",
-					"check_installation": "ifconfig --version",
-					"is_properly_installed": true
-				},
 			}
 		}
 	],
