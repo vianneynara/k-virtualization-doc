@@ -110,6 +110,18 @@
 					"action": "sudo passwd nara",
 					"new_password": "$1234"
 				},
+				"add_new_user": {
+					"action": "sudo adduser orca",
+					"sudo_password": "$1234",
+					"password": "1234",
+					"confirm_password": "1234",
+					"full_name": "Orca",
+					"room_number": "SKIP",
+					"work_phone": "SKIP",
+					"home_phone": "SKIP",
+					"other": "SKIP",
+					"is_information_correct": "y"
+				},
 				"reboot": "reboot",
 				"hostname_changed": true,
 				"nara-us2_login": "nara",
@@ -117,6 +129,24 @@
 				"is_logged_in_properly": true,
 				"shutdown": "shutdown -h now"
 			}
+		},
+		{
+			"phase": "Check new user",
+			"steps": {
+				"run_virtual_machine": "Double click 'Ubuntu Server Clone' instance",
+				"nara-us_login": "orca",
+				"password": "1234",
+				"is_logged_in_properly": true,
+				"check_users_in_home_folder": "dir /home",
+				"user_folder_exists": true,
+				"grant_root_access_to_new_user": {
+					"logout_from_orca": "logout",
+					"nara-us_login": "nara",
+					"password": "$4321",
+					"grant_root_access": "sudo usermod -aG sudo orca"
+				},
+				"check_sudo_access": "groups orca",
+				"is_orca_sudo": true
+			}
 		}
 	]
-}
