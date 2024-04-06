@@ -237,5 +237,29 @@
 				"is_logged_in_properly": true
 			}
 		}
+	],
+	"database_setup": [
+		{
+			"phase": "Installing MySQL Server",
+			"steps": {
+				"update_repository": "sudo apt-get update",
+				"install_mysql_server": "sudo apt install mysql-server",
+				"do_you_want_to_continue": "",
+				"check_msql-service_status": "sudo systemctl status mysql.service",
+				"is_mysql-service_running": true,
+			}
+		},
+		{
+			"phase": "Create user and grant privileges",
+			"steps": {
+				"enter_mysql_as_root": "sudo mysql -u root -p",
+				"create_new_user": "CREATE USER 'orca'@'localhost' IDENTIFIED BY '$1234';",
+				"grant_all_privileges": "GRANT ALL PRIVILEGES ON mysql.table TO 'orca'@'localhost';",
+				"ensure_changes": "FLUSH PRIVILEGES;"
+			}
+		},
+		{
+			"phase": "Setup port forwarding for MySQL"
+		}
 	]
 }
