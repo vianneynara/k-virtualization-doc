@@ -225,5 +225,17 @@
 				"is_ping_successful": true
 			}
 		}
+	],
+	"connect_with_ssh": [
+		{
+			"phase": "Connect with SSH from windows",
+			"steps": {
+				"is_vm_running": true,
+				"open_cmd": "Open 'Command Prompt'",
+				"initiate_connection": "ssh -p 91 orca@localhost",
+				"enter_password": "1234",
+				"is_logged_in_properly": true
+			}
+		}
 	]
 }
