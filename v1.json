@@ -149,4 +149,93 @@
 				"is_orca_sudo": true
 			}
 		}
+	],
+	"configure_vm_connections": [
+		{
+			"phase": "Create NAT network in VirtualBox for SSH",
+			"steps": {
+				"open_nat_networks_panel": "Click 'Tools' button",
+				"create_nat_network": "Click 'Create' button",
+				"name": "netnat",
+				"ipv4_profile": "172.91.1.0/24",
+				"confirm_changes": "Click 'Apply'",
+				"setup_port_forwarding": {
+					"open_port_forwarding": "Click 'Port Forwarding'",
+					"add_new_port_rule": "Click 'Adds new port forwarding rule'",
+					"configure_rule": {
+						"name": "ssh",
+						"protocol": "TCP",
+						"host_ip": "0.0.0.0",
+						"host_port": "91",
+						"guest_ip": "172.16.91.12",
+						"guest_port": "22"
+					}
+				},
+				"confirm_changes": "Click 'Apply'"
+			}
+		},
+		{
+			"phase": "Set network adapter for each VM in VirtualBox",
+			"steps": {
+				"open_settings": "Right click VM instance > Click 'Settings'",
+				"open_network_tab": "Click 'Network'",
+				"change_adapter_settings": {
+					"enable_network_adapter": true,
+					"attached_to": "NAT Network",
+					"name": "netnat"
+				},
+				"confirm_changes": "Click 'Ok'"
+			}
+		},
+		{
+			"phase": "Set netplan network for each VM in VirtualBox",
+			"steps": {
+				"run_virtual_machine": "Double click VM instance",
+				"enter_credentials": "Enter username and password",
+				"change_netplan_yaml": {
+					"open_file": "sudo nano /etc/netplan/00-installer-config.yaml",
+					"changes": {
+						"network": {
+							"ethernets": {
+								"enp0s3": {
+									"dhcp4": false,
+									"addresses": "[172.16.91.x/24] (x is specific ip)",
+									"routes": {
+										"- to": "0.0.0.0/0",
+										"  via": "172.16.91.x (x is specific ip)"
+									},
+									"nameservers": {
+										"addresses": "[8.8.8.8, 8.8.4.4]"
+									}
+								}
+							},
+						},
+						"version": 2
+					},
+					"save_then_exit": "CTRL + S, CTRL + X"
+				},
+			}
+		},
+		{
+			"phase": "Ping between VMs",
+			"steps": {
+				"run_virtual_machine": "Double click VM instance",
+				"enter_credentials": "Enter username and password",
+				"ping_vm": "ping 172.16.91.x (x is specific ip)",
+				"is_ping_successful": true
+			}
+		}
+	],
+	"connect_with_ssh": [
+		{
+			"phase": "Connect with SSH from windows",
+			"steps": {
+				"is_vm_running": true,
+				"open_cmd": "Open 'Command Prompt'",
+				"initiate_connection": "ssh -p 91 orca@localhost",
+				"enter_password": "1234",
+				"is_logged_in_properly": true
+			}
+		}
 	]
+}
