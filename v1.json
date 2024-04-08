@@ -237,5 +237,77 @@
 				"is_logged_in_properly": true
 			}
 		}
+	],
+	"database_setup": [
+		{
+			"phase": "Installing MySQL Server",
+			"steps": {
+				"update_repository": "sudo apt-get update",
+				"install_mysql_server": "sudo apt install mysql-server",
+				"do_you_want_to_continue": "",
+				"check_msql-service_status": "sudo systemctl status mysql.service",
+				"is_mysql-service_running": true,
+			}
+		},
+		{
+			"phase": "Create user and grant privileges",
+			"steps": {
+				"enter_mysql_as_root": "sudo mysql -u root -p",
+				"create_new_user": "CREATE USER 'orca'@'localhost' IDENTIFIED BY '$1234';",
+				"grant_all_privileges": "GRANT ALL PRIVILEGES ON mysql.table TO 'orca'@'localhost';",
+				"ensure_changes": "FLUSH PRIVILEGES;"
+			}
+		},
+		{
+			"phase": "Setup port forwarding for MySQL"
+		}
+	],
+	"apache_setup": [
+		{
+			"phase": "Installing Apache",
+			"steps": {
+				"update_repository": "sudo apt-get update",
+				"install_mysql_server": "sudo apt install apache2",
+				"do_you_want_to_continue": "",
+				"check_apache2_status": "sudo systemctl status apache2",
+				"is_apache2_running": true,
+			}
+		},
+		{
+			"phase": "Port forwarding for HTTP",
+			"steps": {
+				"open_nat_networks_panel": "Click 'Tools' button",
+				"setup_port_forwarding": {
+					"open_port_forwarding": "Click 'Port Forwarding'",
+					"add_new_port_rule": "Click 'Adds new port forwarding rule'",
+					"configure_rule": {
+						"name": "ssh",
+						"protocol": "TCP",
+						"host_ip": "0.0.0.0",
+						"host_port": "4080",
+						"guest_ip": "172.16.91.12",
+						"guest_port": "80"
+					}
+				}
+			}
+		},
+		{
+			"phase": "Setup custom Apache configuration",
+			"steps": {
+				"add_new_config": {
+					"create_and_write_new_file": "sudo nano /etc/apache2/sites-available/orca-backend.conf",
+					"write_configuration": [
+						"<VirtualHost *:80>",
+						"        ServerName nara-us2"
+						"        ProxyPreserveHost On",
+						"        ProxyPass / http://172.91.1.12:4080/ nocanon",
+						"        ProxyPassReverse / http://172.91.1.12:4080/",
+						"</VirtualHost>"
+					],
+					"save_then_exit": "CTRL + S, CTRL + X"
+				},
+				"restart_apache": "sudo systemctl restart apache2"
+			}
+		}
 	]
 }
